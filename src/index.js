@@ -1,11 +1,4 @@
-const menu = document.getElementById('menu');
-const menuOpenBtn = document.getElementById('menu-open-btn');
-const menuCloseBtn = menu.querySelector('.menu-content__close');
+import '../public/index.html';
+import './styles.scss';
 
-menuOpenBtn.addEventListener('click', () => {
-  menu.classList.add('open');
-});
-
-menuCloseBtn.addEventListener('click', () => {
-  menu.classList.remove('open');
-});
+import './scripts/menu';

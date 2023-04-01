@@ -4,19 +4,24 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const resolvePath = (yourPath) => path.resolve(__dirname, yourPath);
 
-const mode = 'development';
+const mode = process.env.NODE_ENV || 'development';
+
 const entry = './src/index.js';
 
 const output = {
-  filename: 'bundle.js',
+  filename: 'main.[contenthash].js',
   path: resolvePath('dist'),
-  publicPath: '/dist',
+  clean: true,
 };
 
 const modules = {
   rules: [
     {
-      test: /\.s?css$/,
+      test: /\.html$/i,
+      loader: 'html-loader',
+    },
+    {
+      test: /\.(c|sc)ss$/i,
       use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
     },
   ],
@@ -27,9 +32,8 @@ const plugins = [
     template: resolvePath('public/index.html'),
   }),
   new MiniCssExtractPlugin({
-    filename: "[name].css",
-    chunkFilename: "[id].css"
-  })
+    filename: '[name].[contenthash].css',
+  }),
 ];
 
 const devServer = {
